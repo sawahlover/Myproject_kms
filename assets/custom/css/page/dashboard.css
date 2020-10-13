@@ -1,0 +1,10 @@
+.cursor-hand{
+    cursor: pointer;
+}
+
+.body{
+   
+    background-image: url("bak.jpg") !important;
+    background-size: cover;
+    margin-top:0;
+}
