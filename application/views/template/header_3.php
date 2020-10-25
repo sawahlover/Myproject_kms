@@ -121,13 +121,13 @@
 								<div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
 									<ul class="kt-menu__subnav">
 										<li class="kt-menu__item " aria-haspopup="true">
-											<a href="#" class="kt-menu__link ">
+											<a href="<?= site_url('contents/upload/vidio')?>" class="kt-menu__link ">
 												<i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
 												<span class="kt-menu__link-text">Upload Vidio</span>
 											</a>
 										</li>
 										<li class="kt-menu__item " aria-haspopup="true">
-											<a href="#" class="kt-menu__link ">
+											<a href="<?= site_url('contents/upload/material')?>" class="kt-menu__link ">
 												<i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
 												<span class="kt-menu__link-text">Upload Material</span>
 											</a>
@@ -144,13 +144,13 @@
 								<div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
 									<ul class="kt-menu__subnav">
 										<li class="kt-menu__item " aria-haspopup="true">
-											<a href="#" class="kt-menu__link ">
+											<a href="<?= site_url('contents/data/vidio')?>" class="kt-menu__link ">
 												<i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
 												<span class="kt-menu__link-text">Contens Vidio</span>
 											</a>
 										</li>
 										<li class="kt-menu__item " aria-haspopup="true">
-											<a href="#" class="kt-menu__link ">
+											<a href="<?= site_url('contents/data/material')?>" class="kt-menu__link ">
 												<i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
 												<span class="kt-menu__link-text">Contents Material</span>
 											</a>
@@ -167,13 +167,13 @@
 								<div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
 									<ul class="kt-menu__subnav">
 										<li class="kt-menu__item " aria-haspopup="true">
-											<a href="#" class="kt-menu__link ">
+											<a href="<?= site_url('contents/data/vidio')?>" class="kt-menu__link ">
 												<i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
 												<span class="kt-menu__link-text">Registered Users</span>
 											</a>
 										</li>
 										<li class="kt-menu__item " aria-haspopup="true">
-											<a href="#" class="kt-menu__link ">
+											<a href="<?= site_url('contents/data/material')?>" class="kt-menu__link ">
 												<i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i>
 												<span class="kt-menu__link-text">All Users</span>
 											</a>
