@@ -7,70 +7,108 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('form_validation');
+        $this->load->model('m_auth');
+        if($this->session->userdata('is_login')){
+            redirect(site_url('dashboard'),'refresh');
+        }
     }
 
     public function index()
     {
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
-        $this->form_validation->set_rules('password', 'Pasword', 'required');
-
-        if ($this->form_validation->run() == false) {
-
-            $data['title'] = 'Sign_Up page';
-            $this->load->view('template_auth/header', $data);
-            $this->load->view('auth/login');
-            $this->load->view('template_auth/footer');
-        } else {
-            $this->_login();
-        }
+        $this->load->view('view_login_and_register');
     }
-    private function _login()
+    function dologin()
     {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
-
-        $user = $this->db->get_where('tb_user', ['email' => $email])->row_array();
-
-        //user ada
-        if ($user) {
-            //jika user aktiv
-            if ($user['active'] == 1) {
-
-                //cek pasword
-                if (password_verify($password, $user['password'])) {
-                    $rolename = '';
-                    if ($user['role_id'] == 2) {
-                        $rolename = 'root';
-                    } else if ($user['role_id'] == 3) {
-                        $rolename = 'user';
+        if($this->input->is_ajax_request()){
+            $finOneUser=$this->m_auth->findOneUser($this->input->post('email'));
+            if($finOneUser->num_rows() > 0){
+                $rowsData=$finOneUser->row_array();
+                if($rowsData['active']=='1'){
+                    if (password_verify($this->input->post('password'), $rowsData['password'])) {
+                        $session=[
+                            'is_login'=>true,
+                            'login_at'=>date("Y-m-d H:i:s"),
+                            'email'=>$rowsData['email'],
+                            'nama'=>$rowsData['name'],
+                            'role'=>$rowsData['role_id']
+                        ];
+                        $this->session->set_userdata($session);
+                        $this->res=[
+                            'success'=>true,
+                            'message'=>'Your login success.'
+                        ];
+                    }else{
+                        $this->res=[
+                            'success'=>false,
+                            'message'=>'Your email or password wrong, try again.'
+                        ];
                     }
-
-
-                    $data = [
-                        'email' => $user['email'],
-                        'role_id' => $user['role_id'],
-                        'name' => $user['name'],
-                        'rolename' => $rolename
-
+                }else if($rowsData['active']=='0'){
+                    $this->res=[
+                        'success'=>false,
+                        'message'=>'Your accound disabled, if you feel this wrong, report to admin.'
                     ];
-                    $this->session->set_userdata($data);
-                    redirect('user');
-                    //echo 'berhasil login';
-                } else {
-                    $this->session->set_flashdata('pesan', '<div class="alert 
-                alert-danger" role="alert">PAssword salah</div>');
-                    redirect('auth');
+                }else if($rowsData['active']=='2'){
+                    $this->res=[
+                        'success'=>false,
+                        'message'=>'Please confirm your email, by click link confirm on email, if you not receiving email <a href="javascript:;" class="kt-badge kt-badge--dark kt-badge--inline" title="Klik to resend confirm email."> resend confirm email</a> '
+                    ];
+                }else if($rowsData['active']=='3'){
+                    $this->res=[
+                        'success'=>false,
+                        'message'=>'Your account on riview by admin, please wait admin approve your account registering.'
+                    ];
                 }
-            } else {
-                $this->session->set_flashdata('pesan', '<div class="alert 
-                alert-danger" role="alert">Email belum terdaftar</div>');
-                redirect('auth');
+                
+            }else{
+                $this->res=[
+                    'success'=>false,
+                    'message'=>'Account not found.'
+                ];
             }
-        } else {
-            $this->session->set_flashdata('pesan', '<div class="alert 
-            alert-danger" role="alert">Email belum terdaftar</div>');
-            redirect('auth');
+            echo json_encode($this->res);
+            // $email = $this->input->post('email');
+            // $password = $this->input->post('password');
+            // $user = $this->db->get_where('tb_user', ['email' => $email])->row_array();
+            // //user ada
+            // if ($user) {
+            //     //jika user aktiv
+            //     if ($user['active'] == 1) {
+            //         //cek pasword
+            //         if (password_verify($password, $user['password'])) {
+            //             $rolename = '';
+            //             if ($user['role_id'] == 2) {
+            //                 $rolename = 'root';
+            //             } else if ($user['role_id'] == 3) {
+            //                 $rolename = 'user';
+            //             }
+            //             $data = [
+            //                 'email' => $user['email'],
+            //                 'role_id' => $user['role_id'],
+            //                 'name' => $user['name'],
+            //                 'rolename' => $rolename
+
+            //             ];
+            //             $this->session->set_userdata($data);
+            //             redirect('user');
+            //             //echo 'berhasil login';
+            //         } else {
+            //             $this->session->set_flashdata('pesan', '<div class="alert 
+            //         alert-danger" role="alert">PAssword salah</div>');
+            //             redirect('auth');
+            //         }
+            //     } else {
+            //         $this->session->set_flashdata('pesan', '<div class="alert 
+            //         alert-danger" role="alert">Email belum terdaftar</div>');
+            //         redirect('auth');
+            //     }
+            // } else {
+            //     $this->session->set_flashdata('pesan', '<div class="alert 
+            //     alert-danger" role="alert">Email belum terdaftar</div>');
+            //     redirect('auth');
+            // }
+        }else{
+            redirect(base_url(),'refresh');
         }
     }
 
