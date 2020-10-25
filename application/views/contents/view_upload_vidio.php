@@ -69,6 +69,7 @@
                     <div class="col-10">
                         <select name="kategori" id="kategori" class='form-control'>
                             <option value="">Select Category</option>
+                            <?= opt_category()?>
                         </select>
                     </div>
                 </div>
