@@ -123,7 +123,10 @@
 	<!--begin::Global Theme Bundle(used by all pages) -->
 
 	<script src="<?= base_url() ?>assets/js/thema_v3.js" type="text/javascript"></script>
+	<script src="<?= base_url() ?>assets/vendors/general/fancybox/jquery.fancybox-1.3.4.js" type="text/javascript"></script>
+	<script src="<?= base_url() ?>assets/js/app.js" type="text/javascript"></script>
 	<!--end::Global Theme Bundle -->
+	<?= asset_js()?>
 </body>
 <!-- end::Body -->
 

@@ -12,6 +12,7 @@ class Dashboard extends App_Controller {
 
     public function index()
     {
+        set_label("Dashboard");
         $this->template('view_dashboard');
     }
 

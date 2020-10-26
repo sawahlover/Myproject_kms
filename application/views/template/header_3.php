@@ -6,7 +6,7 @@
 <head>
 	<meta charset="utf-8" />
 
-	<title>Dashboard | KMS</title>
+	<title><?=get_title()?> | KMS FHI360-INDONESIA</title>
 	<meta name="description" content="Latest updates and statistic charts">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -57,12 +57,17 @@
 	<!--begin::Global Theme Styles(used by all pages) -->
 
 	<link href="<?= base_url() ?>assets/css/theme_v3.css" rel="stylesheet" type="text/css" />
+	<link href="<?= base_url() ?>assets/vendors/general/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css" />
 	<!--end::Global Theme Styles -->
 
 	<!--begin::Layout Skins(used by all pages) -->
 	<!--end::Layout Skins -->
 
 	<link rel="shortcut icon" href="<?= base_url() ?>assets/media/logos/favicon.ico" />
+	<?= asset_css()?>
+	<script>
+		var base_url = '<?= base_url() ?>';
+	</script>
 </head>
 <!-- end::Head -->
 
